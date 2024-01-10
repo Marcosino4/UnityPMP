@@ -1,36 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class PalaMovement : MonoBehaviour
 {
-    public  float speed = 0;
-    public KeyCode up;
-    public KeyCode down;
-    private Vector2 direccion;
-    private Rigidbody2D rb;
+    public float speed = 2;
+    public KeyCode upKey, downKey;
+
+    private Vector2 _direction;
+    private Rigidbody2D _rb;
+
     // Start is called before the first frame update
     void Start()
     {
-              rb = GetComponent<Rigidbody2D>();
+       _rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        direccion = Vector2.zero;
-        if (Input.GetKey(up))
+        _direction = Vector2.zero;
+
+        if (Input.GetKey(upKey))
         {
-            direccion = new Vector2(0, 1);
-        }else if (Input.GetKey(down))
+            _direction = new Vector2(0, 1);
+        }
+        else if(Input.GetKey(downKey))
         {
-            direccion = new Vector2(0, -1);
+            _direction = new Vector2(0, -1);
         }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
-        //Update que se ejecuta cada más tiempo
-        rb.velocity = direccion * speed;    
+        _rb.velocity = _direction * speed;
     }
 }
